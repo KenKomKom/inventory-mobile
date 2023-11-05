@@ -13,17 +13,29 @@ class MyHomePage extends StatelessWidget {
 
     final List<ShopItem> items = [
     ShopItem("Lihat Item", Icons.accessible_forward, Colors.red),
-    ShopItem("Tambah Item", Icons.add_circle, Colors.black),
-    ShopItem("Logout", Icons.exit_to_app, Colors.yellow),
+    ShopItem("Tambah Item", Icons.add_circle, Colors.deepOrange),
+    ShopItem("Logout", Icons.exit_to_app, Colors.orange),
     ];
 
     @override
     Widget build(BuildContext context) {
-        return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Shopping List',
-        ),
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Inventory',
+            style: TextStyle(fontFamily:"GoogleDisplay"),
+          ),
+          actions: [
+            Padding(padding: const EdgeInsets.only(right: 100),
+
+              child:IconButton(onPressed: (){
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Settings")));
+                }, icon: const Icon(Icons.settings), tooltip: "Wow Button!"
+              )//IconButton
+            )
+          ],
+          backgroundColor: Colors.deepOrangeAccent,
+          foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         // Widget wrapper yang dapat discroll
@@ -41,6 +53,7 @@ class MyHomePage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
+                    color: Colors.deepOrangeAccent
                   ),
                 ),
               ),
@@ -49,7 +62,8 @@ class MyHomePage extends StatelessWidget {
               GridView.count(
                 // Container pada card kita.
                 primary: true,
-                padding: const EdgeInsets.all(20),
+                // padding: const EdgeInsets.all(200),
+                padding: const EdgeInsets.only(left: 200, top:20, bottom: 0, right: 200) ,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 crossAxisCount: 3,
@@ -166,9 +180,18 @@ class ShopCard extends StatelessWidget {
             ..showSnackBar(SnackBar(
                 content: Text("Kamu telah menekan tombol ${item.name}!")));
         },
+        
+        borderRadius: BorderRadius.circular(12),
         child: Container(
           // Container untuk menyimpan Icon dan Text
-          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: item.color,
+          boxShadow: [
+            BoxShadow(spreadRadius: 3),
+          ],
+        ),
+          padding: const EdgeInsets.all(0),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
