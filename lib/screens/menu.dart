@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:inventory/widgets/drawer.dart';
+import 'package:inventory/widgets/shopcard.dart';
 
-class ShopItem {
+class Item{
   final String name;
+  final int price;
   final IconData icon;
-  final Color color;
-
-  ShopItem(this.name, this.icon, this.color);
+  Item(this.name, this.price, this.icon);
 }
 
 class MyHomePage extends StatelessWidget {
@@ -17,6 +18,17 @@ class MyHomePage extends StatelessWidget {
     ShopItem("Logout", Icons.exit_to_app, Colors.orange),
     ];
 
+    final List<Item> itemsss = [
+      Item("a1", 1, Icons.abc),
+      Item("b1",2, Icons.abc_outlined),
+      Item("c1",3, Icons.abc_sharp),
+      Item('d1',4, Icons.ac_unit_rounded),
+      Item("a2", 1, Icons.access_alarm_sharp),
+      Item("b2",2, Icons.access_time_filled_outlined),
+      Item("c2",3, Icons.accessible),
+      Item("d2",4, Icons.adb),
+    ];
+
     @override
     Widget build(BuildContext context) {
       return Scaffold(
@@ -25,18 +37,19 @@ class MyHomePage extends StatelessWidget {
             'Inventory',
             style: TextStyle(fontFamily:"GoogleDisplay"),
           ),
-          actions: [
-            Padding(padding: const EdgeInsets.only(right: 100),
+          // actions: [
+          //   Padding(padding: const EdgeInsets.only(right: 0),
 
-              child:IconButton(onPressed: (){
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Settings")));
-                }, icon: const Icon(Icons.settings), tooltip: "Wow Button!"
-              )//IconButton
-            )
-          ],
+          //     child:IconButton(onPressed: (){
+          //         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Wow Button!")));
+          //       }, icon: const Icon(Icons.settings), tooltip: "Settings"
+          //     )//IconButton
+          //   )
+          // ],
           backgroundColor: Colors.deepOrangeAccent,
           foregroundColor: Colors.white,
       ),
+      endDrawer:const EndDrawer(),
       body: SingleChildScrollView(
         // Widget wrapper yang dapat discroll
         child: Padding(
@@ -73,6 +86,11 @@ class MyHomePage extends StatelessWidget {
                   return ShopCard(item);
                 }).toList(),
               ),
+              // Row(
+              //   children: itemsss.map((Item item){
+              //     return Card(item);
+              //   }).toList(),
+              // ),
             ],
           ),
         ),
@@ -162,56 +180,47 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 */
 
-class ShopCard extends StatelessWidget {
-  final ShopItem item;
+// class Card extends StatefulWidget{
+//   final Item item;
+//   const Card(this.item, { super.key });
 
-  const ShopCard(this.item, {super.key}); // Constructor
+//   @override
+//   State<Card> createState() => _CardState();
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: item.color,
-      child: InkWell(
-        // Area responsive terhadap sentuhan
-        onTap: () {
-          // Memunculkan SnackBar ketika diklik
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(
-                content: Text("Kamu telah menekan tombol ${item.name}!")));
-        },
-        
-        borderRadius: BorderRadius.circular(12),
-        child: Container(
-          // Container untuk menyimpan Icon dan Text
-          decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: item.color,
-          boxShadow: [
-            BoxShadow(spreadRadius: 3),
-          ],
-        ),
-          padding: const EdgeInsets.all(0),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 50.0,
-                ),
-                const Padding(padding: EdgeInsets.all(3)),
-                Text(
-                  item.name,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+// class _CardState extends State<Card> {
+//   bool isChecked = false;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     Color getColor(Set<MaterialState> states) {
+//       const Set<MaterialState> interactiveStates = <MaterialState>{
+//         MaterialState.pressed,
+//         MaterialState.hovered,
+//         MaterialState.focused,
+//       };
+//       if (states.any(interactiveStates.contains)) {
+//         return Colors.blue;
+//       }
+//       return Colors.red;
+//     }
+
+//     return Row(
+//       children:[
+//       Checkbox(
+//         checkColor: Colors.white,
+//         fillColor: MaterialStateProperty.resolveWith(getColor),
+//         value: isChecked,
+//         onChanged: (bool? value) {
+//           setState(() {
+//             isChecked = value!;
+//           });
+//         },
+//       ),
+//       Text("Name:"+ widget.item.name),
+//       Text("Harga: "+widget.item.price.toString()),
+//       ],
+//     );
+//   }
+// }
+
