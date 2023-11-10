@@ -1,4 +1,7 @@
+import 'dart:js_util';
+
 import 'package:flutter/material.dart';
+import 'package:inventory/widgets/items.dart';
 
 class ListFormPage extends StatefulWidget {
     const ListFormPage({super.key});
@@ -135,6 +138,7 @@ class _ListFormPage extends State<ListFormPage> {
                                 TextButton(
                                   child: const Text('OK'),
                                   onPressed: () {
+                                    Item.defaultItems.add(Item(_name, _price, _description));
                                     Navigator.pop(context);
                                   },
                                 ),

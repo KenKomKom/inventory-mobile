@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:inventory/screens/daftar.dart';
-import 'package:inventory/screens/listform.dart';
 
-class ShopItem {
+class Item {
+  static final List<Item> defaultItems = [
+    Item("Aha",2000, "ketawa"),
+    Item("Lala", 30000, "yanto"),
+    Item("lmao", 40000, "ketawa2"),
+    ];
+
   final String name;
-  final IconData icon;
-  final Color color;
+  final int harga;
+  final String description;
 
-  ShopItem(this.name, this.icon, this.color);
+  Item(this.name, this.harga, this.description);
 }
 
-class ShopCard extends StatelessWidget {
-  final ShopItem item;
+class ItemCard extends StatelessWidget {
+  final Item item;
 
-  const ShopCard(this.item, {super.key}); // Constructor
+  const ItemCard(this.item, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: item.color,
+      color: Colors.deepOrange,
       child: InkWell(
         // Area responsive terhadap sentuhan
         onTap: () {
@@ -28,12 +33,6 @@ class ShopCard extends StatelessWidget {
             ..showSnackBar(SnackBar(
                 content: Text("Kamu telah menekan tombol ${item.name}!")));
             if (item.name == "Tambah Item") {
-              Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ListFormPage(),
-              ));
-            }else if (item.name == "Daftar Item") {
               Navigator.push(
               context,
               MaterialPageRoute(
@@ -47,7 +46,7 @@ class ShopCard extends StatelessWidget {
           // Container untuk menyimpan Icon dan Text
           decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: item.color,
+          color: Colors.deepOrange,
           boxShadow: [
             BoxShadow(spreadRadius: 3),
           ],
@@ -57,14 +56,19 @@ class ShopCard extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 50.0,
-                ),
                 const Padding(padding: EdgeInsets.all(3)),
                 Text(
                   item.name,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.white),
+                ),
+                Text(
+                  item.harga.toString(),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.white),
+                ),
+                Text(
+                  item.description,
                   textAlign: TextAlign.center,
                   style: const TextStyle(color: Colors.white),
                 ),

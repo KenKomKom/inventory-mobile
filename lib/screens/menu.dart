@@ -2,31 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:inventory/widgets/drawer.dart';
 import 'package:inventory/widgets/shopcard.dart';
 
-class Item{
-  final String name;
-  final int price;
-  final IconData icon;
-  Item(this.name, this.price, this.icon);
-}
 
 class MyHomePage extends StatelessWidget {
     MyHomePage({Key? key}) : super(key: key);
 
     final List<ShopItem> items = [
-    ShopItem("Lihat Item", Icons.accessible_forward, Colors.red),
+    ShopItem("Daftar Item", Icons.accessible_forward, Colors.red),
     ShopItem("Tambah Item", Icons.add_circle, Colors.deepOrange),
     ShopItem("Logout", Icons.exit_to_app, Colors.orange),
-    ];
-
-    final List<Item> itemsss = [
-      Item("a1", 1, Icons.abc),
-      Item("b1",2, Icons.abc_outlined),
-      Item("c1",3, Icons.abc_sharp),
-      Item('d1',4, Icons.ac_unit_rounded),
-      Item("a2", 1, Icons.access_alarm_sharp),
-      Item("b2",2, Icons.access_time_filled_outlined),
-      Item("c2",3, Icons.accessible),
-      Item("d2",4, Icons.adb),
     ];
 
     @override
@@ -66,7 +49,7 @@ class MyHomePage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color: Colors.deepOrangeAccent
+                    color: Colors.orangeAccent
                   ),
                 ),
               ),

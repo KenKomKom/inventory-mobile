@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inventory/screens/daftar.dart';
 import 'package:inventory/screens/menu.dart';
 import 'package:inventory/screens/listform.dart';
 
@@ -47,8 +48,21 @@ class EndDrawer extends StatelessWidget {
               },
           ),
           ListTile(
+            leading: const Icon(Icons.accessible_forward),
+            title: const Text('Daftar Item'),
+            // Bagian redirection ke ShopFormPage
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const DaftarPage(),
+                )
+              );
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.add_shopping_cart),
-            title: const Text('Tambah Produk'),
+            title: const Text('Tambah Item'),
             // Bagian redirection ke ShopFormPage
             onTap: () {
               Navigator.push(
@@ -59,6 +73,7 @@ class EndDrawer extends StatelessWidget {
               );
             },
           ),
+          
         ],
       ),
     );

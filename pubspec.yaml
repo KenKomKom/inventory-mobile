@@ -92,5 +92,3 @@ flutter:
   - family: GoogleDisplay
     fonts:
       - asset: fonts\GoogleSans-Bold-v1.27.ttf
-  assets:
-    - assets\AsetSheetBIG.png
