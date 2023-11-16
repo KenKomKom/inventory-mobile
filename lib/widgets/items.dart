@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:inventory/screens/daftar.dart';
 
 class Item {
   static final List<Item> defaultItems = [
@@ -32,13 +31,6 @@ class ItemCard extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
                 content: Text("Kamu telah menekan tombol ${item.name}!")));
-            if (item.name == "Tambah Item") {
-              Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const DaftarPage(),
-              ));
-            }
         },
         
         borderRadius: BorderRadius.circular(12),

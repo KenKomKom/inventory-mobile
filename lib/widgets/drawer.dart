@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inventory/screens/daftar.dart';
 import 'package:inventory/screens/menu.dart';
 import 'package:inventory/screens/listform.dart';
+import 'package:inventory/screens/list_vehicle.dart';
 
 class EndDrawer extends StatelessWidget {
   const EndDrawer({super.key});
@@ -48,17 +48,15 @@ class EndDrawer extends StatelessWidget {
               },
           ),
           ListTile(
-            leading: const Icon(Icons.accessible_forward),
-            title: const Text('Daftar Item'),
-            // Bagian redirection ke ShopFormPage
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const DaftarPage(),
-                )
-              );
-            },
+              leading: const Icon(Icons.shopping_basket),
+              title: const Text('Daftar Item'),
+              onTap: () {
+                  // Route menu ke halaman produk
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProductPage()),
+                  );
+              },
           ),
           ListTile(
             leading: const Icon(Icons.add_shopping_cart),
@@ -73,7 +71,6 @@ class EndDrawer extends StatelessWidget {
               );
             },
           ),
-          
         ],
       ),
     );

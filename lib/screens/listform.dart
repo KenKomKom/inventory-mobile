@@ -1,7 +1,10 @@
-import 'dart:js_util';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:inventory/widgets/items.dart';
+import 'package:inventory/screens/menu.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+
 
 class ListFormPage extends StatefulWidget {
     const ListFormPage({super.key});
@@ -13,11 +16,12 @@ class ListFormPage extends StatefulWidget {
 class _ListFormPage extends State<ListFormPage> {
     final _formKey = GlobalKey<FormState>();
     String _name = "";
-    int _price = 0;
+    int _amount = 0;
     String _description = "";
 
     @override
     Widget build(BuildContext context) {
+        final request = context.watch<CookieRequest>();
         return Scaffold(
           appBar: AppBar(
             title: const Center(
@@ -85,23 +89,23 @@ class _ListFormPage extends State<ListFormPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     decoration: InputDecoration(
-                      hintText: "Harga",
-                      labelText: "Harga",
+                      hintText: "Jumlah",
+                      labelText: "Jumlah",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                     ),
                     onChanged: (String? value) {
                       setState(() {
-                        _price = int.parse(value!);
+                        _amount = int.parse(value!);
                       });
                     },
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return "Harga tidak boleh kosong!";
+                        return "Jumlah tidak boleh kosong!";
                       }
                       if (int.tryParse(value) == null) {
-                        return "Harga harus berupa angka!";
+                        return "Jumlah harus berupa angka!";
                       }
                       return null;
                     },
@@ -116,39 +120,35 @@ class _ListFormPage extends State<ListFormPage> {
                         backgroundColor:
                             MaterialStateProperty.all(Colors.deepOrangeAccent),
                       ),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Produk berhasil tersimpan'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                  children: [
-                                    Text('Nama: $_name'),
-                                    Text('Harga: $_price'),
-                                    Text('Desc: $_description'),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Item.defaultItems.add(Item(_name, _price, _description));
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                          _formKey.currentState!.reset();
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                            // Kirim ke Django dan tunggu respons
+                            final response = await request.postJson(
+                            "http://127.0.0.1:8000/create-flutter/",
+                            jsonEncode(<String, String>{
+                                'name': _name,
+                                'amount': _amount.toString(),
+                                'description': _description,
+                                // TODO: Sesuaikan field data sesuai dengan aplikasimu
+                            }));
+                            if (response['status'] == 'success') {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                content: Text("Produk baru berhasil disimpan!"),
+                                ));
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => MyHomePage()),
+                                );
+                            } else {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                    content:
+                                        Text("Terdapat kesalahan, silakan coba lagi."),
+                                ));
+                            }
                         }
-                      },
+                    },
                       child: const Text(
                         "Save",
                         style: TextStyle(color: Colors.white),
