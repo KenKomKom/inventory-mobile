@@ -76,8 +76,6 @@ class _LoginPageState extends State<LoginPage> {
                                     String message = response['message'];
                                     String uname = response['username'];
                                     id = response['id'];
-                                    print("login");
-                                    print(id);
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(builder: (context) => MyHomePage()),

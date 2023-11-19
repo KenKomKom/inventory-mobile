@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inventory/screens/menu.dart';
 import 'package:inventory/screens/listform.dart';
 import 'package:inventory/screens/list_vehicle.dart';
+import 'package:inventory/screens/list_vehicle2.dart';
 
 class EndDrawer extends StatelessWidget {
   const EndDrawer({super.key});
@@ -70,6 +71,18 @@ class EndDrawer extends StatelessWidget {
                 )
               );
             },
+          ),
+          ListTile(
+            leading: const Icon(Icons.home_outlined),
+            title: const Text('List No Class'),
+            // Bagian redirection ke MyHomePage
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductPage2(),
+                  ));
+              },
           ),
         ],
       ),
