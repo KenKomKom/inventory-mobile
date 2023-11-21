@@ -121,16 +121,20 @@ class _ListFormPage extends State<ListFormPage> {
                             MaterialStateProperty.all(Colors.deepOrangeAccent),
                       ),
                       onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                            // Kirim ke Django dan tunggu respons
-                            final response = await request.postJson(
-                            "http://127.0.0.1:8000/create-flutter/",
-                            jsonEncode(<String, String>{
+                        print("name:"+_name);
+                        print("amount:"+_amount.toString());
+                        print("desc:"+_description);
+                        var a = jsonEncode(<String, String>{
                                 'name': _name,
                                 'amount': _amount.toString(),
                                 'description': _description,
-                                // TODO: Sesuaikan field data sesuai dengan aplikasimu
-                            }));
+                            });
+                        print(a);
+                        if (_formKey.currentState!.validate()) {
+                            // Kirim ke Django dan tunggu respons
+                            final response = await request.postJson(
+                            "http://127.0.0.1:8000/create-flutter/",a);
+                            print(response);
                             if (response['status'] == 'success') {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(const SnackBar(

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:inventory/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -75,11 +77,19 @@ class _RegisterPage extends State<RegisterPage> {
                                 String password2 = _reconfirmPasswordController.text;
 
                                 // Cek kredensial
-                                final response = await request.login("http://127.0.0.1:8000/auth/register/", {
-                                'username': username,
-                                'password': password,
-                                'reconfirmPassword':password2
+                                // final response = await request.login(
+                                // "http://127.0.0.1:8000/auth/register/", {
+                                // 'username': username,
+                                // 'password': password,
+                                // 'reconfirmPassword': password2,
+                                // });
+                                var a = jsonEncode(<String, String>{
+                                "username": username,
+                                "password": password,
+                                "reconfirmPassword": password2,
                                 });
+                                final response = await request.postJson(
+                                "http://127.0.0.1:8000/auth/register/",a);
                                 bool success = response['status'];
                     
                                 if (success) {
