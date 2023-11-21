@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:inventory/main.dart';
 import 'dart:convert';
-import 'package:inventory/models/vehicle.dart';
-import 'package:inventory/widgets/drawer.dart';
 
 class ProductPage2 extends StatefulWidget {
     const ProductPage2({Key? key}) : super(key: key);
@@ -14,7 +11,7 @@ class ProductPage2 extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage2> {
 Future<List<dynamic>> fetchProduct() async {
-    var url = Uri.parse('http://127.0.0.1:8000/all-vehicles-json/');
+    var url = Uri.parse('http://kenichi-komala-tugas.pbp.cs.ui.ac.id/all-vehicles-json/');
     var response = await http.get(url, headers: {"Content-Type": "application/json"});
 
     // melakukan decode response menjadi bentuk json

@@ -4,6 +4,7 @@ import 'package:inventory/main.dart';
 import 'dart:convert';
 import 'package:inventory/models/vehicle.dart';
 import 'package:inventory/widgets/drawer.dart';
+import 'package:inventory/screens/VehiclePage.dart';
 
 class ProductPage extends StatefulWidget {
     const ProductPage({Key? key}) : super(key: key);
@@ -76,8 +77,15 @@ Widget build(BuildContext context) {
                                         const SizedBox(height: 10),
                                         Text("${snapshot.data![index].fields.amount}"),
                                         const SizedBox(height: 10),
-                                        Text(
-                                            "${snapshot.data![index].fields.description}")
+                                        Text("${snapshot.data![index].fields.description}"),
+                                        ElevatedButton(
+                                          onPressed: (){
+                                            Navigator.push(context,
+                                              MaterialPageRoute(builder: (context) =>  VehiclePage(vehicle: snapshot.data![index]))
+                                            );
+                                          }, 
+                                          child: const Text("CheckOut"),
+                                        ),
                                     ],
                                     ),
                                 ));
