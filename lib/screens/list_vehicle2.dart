@@ -11,7 +11,7 @@ class ProductPage2 extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage2> {
 Future<List<dynamic>> fetchProduct() async {
-    var url = Uri.parse('http://127.0.0.1:8000/all-vehicles-json/');
+    var url = Uri.parse('https://kenichi-komala-tugas.pbp.cs.ui.ac.id/all-vehicles-json/');
     var response = await http.get(url, headers: {"Content-Type": "application/json"});
 
     // melakukan decode response menjadi bentuk json

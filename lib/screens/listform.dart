@@ -133,7 +133,7 @@ class _ListFormPage extends State<ListFormPage> {
                         if (_formKey.currentState!.validate()) {
                             // Kirim ke Django dan tunggu respons
                             final response = await request.postJson(
-                            "http://127.0.0.1:8000/create-flutter/",a);
+                            "https://kenichi-komala-tugas.pbp.cs.ui.ac.id/create-flutter/",a);
                             print(response);
                             if (response['status'] == 'success') {
                                 ScaffoldMessenger.of(context)

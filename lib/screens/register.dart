@@ -78,7 +78,7 @@ class _RegisterPage extends State<RegisterPage> {
 
                                 // Cek kredensial
                                 // final response = await request.login(
-                                // "http://127.0.0.1:8000/auth/register/", {
+                                // "https://kenichi-komala-tugas.pbp.cs.ui.ac.id/auth/register/", {
                                 // 'username': username,
                                 // 'password': password,
                                 // 'reconfirmPassword': password2,
@@ -89,7 +89,7 @@ class _RegisterPage extends State<RegisterPage> {
                                 "reconfirmPassword": password2,
                                 });
                                 final response = await request.postJson(
-                                "http://127.0.0.1:8000/auth/register/",a);
+                                "https://kenichi-komala-tugas.pbp.cs.ui.ac.id/auth/register/",a);
                                 bool success = response['status'];
                     
                                 if (success) {
