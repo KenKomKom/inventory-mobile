@@ -1061,3 +1061,48 @@ final response = await request.login("http://127.0.0.1:8000/auth/login/", {
             }
           }
     ```
+
+    Dan untuk page khusus informasi tiap objek dibuat file bernama VehiclePage.dart yang berisikan
+    ```dart
+    import 'package:flutter/material.dart';
+    import 'package:inventory/models/vehicle.dart';
+    import 'package:inventory/widgets/drawer.dart';
+
+    class VehiclePage extends StatelessWidget {
+    final Vehicle vehicle;
+    const VehiclePage({super.key, required this.vehicle});
+
+    @override
+    Widget build(BuildContext context) {
+        return Scaffold(
+            appBar: AppBar(
+            title: const Text(
+                'Inventory',
+                style: TextStyle(fontFamily:"GoogleDisplay"),
+            ),
+            ),
+            endDrawer:const EndDrawer(),
+            body:Column(children: [
+            Text("Name: "+vehicle.fields.name),
+            Text("Amount: "+vehicle.fields.amount.toString()),
+            Text("Owned By: "+vehicle.fields.user.toString()),
+            Text("Description: "+vehicle.fields.description),
+            ],)
+        );
+        }
+    }
+    ```
+
+    Dan juga pada list_vehicle.dart ditambahkan
+    ```dart
+    import 'package:inventory/screens/VehiclePage.dart';
+    ...
+    ElevatedButton(
+        onPressed: (){
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) =>  VehiclePage(vehicle: snapshot.data![index]))
+        );
+        }, 
+        child: const Text("CheckOut"),
+    ),
+    ``` 
